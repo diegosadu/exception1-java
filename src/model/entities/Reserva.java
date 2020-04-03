@@ -42,9 +42,22 @@ public class Reserva {
 		return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
 	}
 	
-	public void atulizaDatas(Date checkin, Date checkout) {
+	public String atulizaDatas(Date checkin, Date checkout) {
+		
+		Date agora = new Date();
+		
+		if (agora.after(checkin) || agora.after(checkout)) {
+			return "Erro na reserva: Datas para reserva devem ser posteriores ao dia de hoje.";
+		}
+		
+		if (checkin.after(checkout)) {
+			return "Erro na reserva: Check-out dever ser posterior ao Check-in.";
+		}
+		
 		this.checkin = checkin;
 		this.checkout = checkout;
+		
+		return null;
 	}
 	
 	@Override
